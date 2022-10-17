@@ -334,8 +334,8 @@ fi
 awk '{sub(/>Local/,">Kad")}1' /usr/share/amule/webserver/default/amuleweb-main-search.php > tmp.php \
       && mv tmp.php /usr/share/amule/webserver/default/amuleweb-main-search.php
 #Set full filename display for search results
-awk '{sub(/>short_name/,">name")}1' /usr/share/amule/webserver/default/amuleweb-main-shared.php > tmp2.php \
-      && mv tmp2.php /usr/share/amule/webserver/default/amuleweb-main-shared.php
+awk '{sub(/>short_name/,">name")}1' /usr/share/amule/webserver/default/amuleweb-main-search.php > tmp2.php \
+      && mv tmp2.php /usr/share/amule/webserver/default/amuleweb-main-search.php
 
 
 # Set permissions
