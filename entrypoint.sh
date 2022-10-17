@@ -329,10 +329,19 @@ if [ "${MOD_FIX_KAD_GRAPH_ENABLED}" = "true" ]; then
     sed -i 's/amule_stats_kad.png//g' /usr/share/amule/webserver/AmuleWebUI-Reloaded/amuleweb-main-stats.php
 fi
 
+#Niels
+#Set default to KAD, instead of Local
+awk '{sub(/>Local/,">Kad")}1' /usr/share/amule/webserver/default/amuleweb-main-search.php > tmp.php \
+      && mv tmp.php /usr/share/amule/webserver/default/amuleweb-main-search.php
+#Set full filename display for search results
+awk '{sub(/>short_name/,">name")}1' /usr/share/amule/webserver/default/amuleweb-main-shared.php > tmp2.php \
+      && mv tmp2.php /usr/share/amule/webserver/default/amuleweb-main-shared.php
+
+
 # Set permissions
-chown -R "${AMULE_UID}:${AMULE_GID}" ${AMULE_INCOMING}
-chown -R "${AMULE_UID}:${AMULE_GID}" ${AMULE_TEMP}
-chown -R "${AMULE_UID}:${AMULE_GID}" ${AMULE_HOME}
+#chown -R "${AMULE_UID}:${AMULE_GID}" ${AMULE_INCOMING}
+#chown -R "${AMULE_UID}:${AMULE_GID}" ${AMULE_TEMP}
+#chown -R "${AMULE_UID}:${AMULE_GID}" ${AMULE_HOME}
 
 # Start aMule
 EXIT_CODE=0
