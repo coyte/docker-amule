@@ -1,87 +1,9 @@
-# ngosang/amule
-
-[![Latest release](https://img.shields.io/github/v/release/ngosang/docker-amule)](https://github.com/ngosang/docker-amule/releases)
-[![Docker Pulls](https://img.shields.io/docker/pulls/ngosang/amule)](https://hub.docker.com/r/ngosang/amule/)
-[![Donate PayPal](https://img.shields.io/badge/Donate-PayPal-yellow.svg)](https://www.paypal.com/paypalme/diegoheras0xff)
-[![Donate Bitcoin](https://img.shields.io/badge/Donate-Bitcoin-f7931a.svg)](https://www.blockchain.com/btc/address/14EcPN47rWXkmFvjfohJx2rQxxoeBRJhej)
-[![Donate Ethereum](https://img.shields.io/badge/Donate-Ethereum-8c8c8c.svg)](https://www.blockchain.com/eth/address/0x0D1549BbB00926BF3D92c1A8A58695e982f1BE2E)
-
 [aMule](https://github.com/amule-project/amule) is a multi-platform client for the ED2K file sharing network and based on the windows client eMule. aMule started in August 2003, as a fork of xMule, which is a fork of lMule.
 
 Inspired by [tchabaud](https://github.com/tchabaud/dockerfiles/tree/master/amule) and [synopsis8](https://github.com/synopsis8/dockerfiles/tree/master/amule) work.
 
-## Docker Registry
-
-Docker images are available in [GHCR](https://github.com/users/ngosang/packages/container/package/amule) and [DockerHub](https://hub.docker.com/r/ngosang/amule).
-
-```bash
-docker pull ghcr.io/ngosang/amule
-or
-docker pull ngosang/amule
-```
-
-## Supported Architectures
-
-The architectures supported by this image are:
-
-* linux/amd64
-* linux/arm/v6
-* linux/arm/v7
-* linux/arm64/v8
-* linux/ppc64le
-* linux/s390x
-
-## Application Setup
-
-The web interface is at: `<your-ip>:4711`
-
-For better download speed you have to open these ports:
-
-* 4662 TCP
-* 4665 UDP
-* 4672 UDP
-
-## Usage
-
-Here are some example snippets to help you get started creating a container.
-
-### docker-compose
-
-Compatible with docker-compose v2 schemas.
-
-```yaml
----
-version: "2.1"
-services:
-  amule:
-    image: ngosang/amule
-    container_name: amule
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-      - GUI_PWD=<fill_password>
-      - WEBUI_PWD=<fill_password>
-      - MOD_AUTO_RESTART_ENABLED=true
-      - MOD_AUTO_RESTART_CRON=0 6 * * *
-      - MOD_AUTO_SHARE_ENABLED=false
-      - MOD_AUTO_SHARE_DIRECTORIES=/incoming;/my_movies
-      - MOD_FIX_KAD_GRAPH_ENABLED=true
-    ports:
-      - "4711:4711" # web ui
-      - "4712:4712" # remote gui, webserver, cmd ...
-      - "4662:4662" # ed2k tcp
-      - "4665:4665/udp" # ed2k global search udp (tcp port +3)
-      - "4672:4672/udp" # ed2k udp
-    volumes:
-      - <fill_amule_configuration_path>:/home/amule/.aMule
-      - <fill_amule_completed_downloads_path>:/incoming
-      - <fill_amule_incomplete_downloads_path>:/temp
-    restart: unless-stopped
-```
 
 ### docker cli
-
 ```bash
 docker run -d \
   --name=amule \
